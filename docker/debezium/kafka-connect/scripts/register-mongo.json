@@ -1,0 +1,13 @@
+{
+  "name": "inventory-connector",
+  "config": {
+    "connector.class" : "io.debezium.connector.mongodb.MongoDbConnector",
+    "tasks.max" : "1",
+    "topic.prefix" : "mongo_prod",
+    "mongodb.hosts" : "rs0/10.22.137.20:27017",
+    "mongodb.user" : "debezium",
+    "mongodb.password" : "dbz",
+    "database.include.list" : "inventory",
+    "collection.include.list": "inventory.customers"
+  }
+}

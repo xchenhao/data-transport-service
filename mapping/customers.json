@@ -1,0 +1,11 @@
+{
+  "name": "mongodb_customers_to_sqldb_users",
+  "mongodb_collection": "customers",
+  "sqldb_table": "users",
+  "column_mapping": {
+    "_id": "user_id",
+    "first_name": "first_name",
+    "last_name": "last_name",
+    "email": "mail"
+  }
+}

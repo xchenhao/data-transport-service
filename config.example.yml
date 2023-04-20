@@ -1,0 +1,17 @@
+kafka:
+  bootstrap_server: 10.22.137.20:39092
+  topics: mongo_prod.inventory.customers
+  group_id: dev001
+db:
+  host: 127.0.0.1
+  port: 3306
+  database: dev
+  user: root
+  password: 123456
+  debug: true
+  # charset: utf8mb4,utf8
+  # max_life_time: 10s
+  # max_idle_conns: 5
+  # max_open_conns: 5
+mongodb_map_to_sql:
+  - mapping/customers.json

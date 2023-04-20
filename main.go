@@ -63,6 +63,7 @@ func main() {
 	kafkaReader := mykafka.Reader(conf.Kafka)
 	defer kafkaReader.Close()
 
+	fmt.Println("Data Transport Service Running...")
 	for {
 		ctx := context.Background()
 		message, err := kafkaReader.FetchMessage(context.Background())

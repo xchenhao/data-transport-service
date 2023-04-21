@@ -21,6 +21,7 @@ services:
       - "29092:29092"
       - "39092:39092"
     environment:
+      KAFKA_ENABLE_KRAFT: no
       ALLOW_PLAINTEXT_LISTENER: "yes"
       KAFKA_BROKER_ID: 1
       KAFKA_CFG_INTER_BROKER_LISTENER_NAME: "CLIENT"
@@ -29,6 +30,7 @@ services:
       KAFKA_CFG_ADVERTISED_LISTENERS: "CLIENT://kafka:9092,EXTERNAL://localhost:29092,FOREIGN://${MACHINE_IP}:39092"
       KAFKA_CFG_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+      BITNAMI_DEBUG: "true"
     volumes:
       - $PWD/kafka-logs:/bitnami/kafka
     networks:
@@ -49,7 +51,7 @@ services:
     depends_on:
       - "kafka"
   connect:
-    image: xchenhao/kafka-connect-mongo:v1.0
+    image: xchenhao/kafka-connect:0.1.0
     restart: "always"
     ports:
       - "8083:8083"

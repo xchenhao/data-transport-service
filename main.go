@@ -6,15 +6,17 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/jinzhu/gorm"
-	kafkago "github.com/segmentio/kafka-go"
 	"os"
 	"strings"
+
+	"github.com/jinzhu/gorm"
+	kafkago "github.com/segmentio/kafka-go"
 
 	"github.com/xchenhao/data-transport-service/config"
 	mykafka "github.com/xchenhao/data-transport-service/kafka"
 	mongo_msg "github.com/xchenhao/data-transport-service/kafka/mongo-msg"
 	"github.com/xchenhao/data-transport-service/logger"
+	"github.com/xchenhao/data-transport-service/mapping"
 	"github.com/xchenhao/data-transport-service/sql"
 )
 
@@ -38,7 +40,7 @@ func parseArgs() string {
 }
 
 var (
-	mappings map[string]*MongoCollectionToSQLDBTable
+	mappings map[string]*mapping.MongoCollectionToSQLDBTable
 	db *gorm.DB
 )
 
@@ -55,7 +57,7 @@ func main() {
 		logger.Fatalln(err)
 	}
 
-	mappings, err = LoadMapping(conf.MongoDBMapToSQLFile)
+	mappings, err = mapping.LoadMapping(conf.MongoDBMapToSQLFile)
 	if err != nil {
 		logger.Fatalln(err)
 	}
@@ -99,7 +101,7 @@ func consumeMessageDispatch(message kafkago.Message, callback func() error) erro
 		return errors.New("only support mongodb message")
 	}
 	collection := msg.Payload.Source.Collection
-	mappingRule := FindItemByCollection(mappings, collection)
+	mappingRule := mapping.FindItemByCollection(mappings, collection)
 
 	switch msg.Payload.Op {
 	case mongo_msg.OpDelete:

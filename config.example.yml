@@ -14,4 +14,4 @@ db:
   # max_idle_conns: 5
   # max_open_conns: 5
 mongodb_map_to_sql:
-  - mapping/customers.json
+  - /etc/mapping/customers.json

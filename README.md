@@ -13,15 +13,15 @@ $ tree -L 1
 ├── kafka # Kafka 消息处理
 ├── logger # 日志相关
 ├── main.go # 入口文件
-├── mapping.go # MongoDB 与 MySQL 列映射处理
 ├── sql # MySQL 配置
+├── mapping # 列映射
 
 ├── go.mod # go modules
 ├── go.sum
 ├── vendor
 
 ├── config.example.yml # 项目配置文件
-├── mapping 列映射配置文件
+
 
 ├── Makefile # 用于构建镜像
 ├── Dockerfile
@@ -67,7 +67,7 @@ $ ./data-transport-service -config ./config.example.yml
 
 - Docker
 ```shell
-$ docker run --rm -v $PWD/config.yml:/etc/config.yml -v $PWD/mapping:/etc/mapping  data-transport-service:0.1.0
+$ docker run --rm -v $PWD/config.yml:/etc/config.yml -v $PWD/mapping/resouces:/etc/mapping  data-transport-service:0.1.0
 (/go/src/github.com/xchenhao/data-transport-service/main.go:179)
 [2023-04-20 11:23:26]  [43.34ms]  INSERT INTO `users`(user_id, first_name, last_name, mail)VALUES('1008', 'Li', 'Si', 'lisi@qq.com')
 [1 rows affected or returned ]

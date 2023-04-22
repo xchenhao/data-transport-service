@@ -52,6 +52,10 @@ services:
       - "kafka"
   connect:
     image: xchenhao/kafka-connect:0.1.0
+    build:
+      context: kafka-connect
+      args:
+        DEBEZIUM_VERSION: 2.1
     restart: "always"
     ports:
       - "8083:8083"

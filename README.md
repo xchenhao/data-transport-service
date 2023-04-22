@@ -41,7 +41,7 @@ $ tree -L 1
 
 ```shell
 $ cd prerequisites/debezium/kafka-connect
-$ docker build -t xchenhao/kafka-connect-mongo:v1.0 . # 构建 kafka-connect 镜像
+$ docker build -t xchenhao/kafka-connect:0.1.0 . # 构建 kafka-connect 镜像
 
 $ cd prerequisites/debezium/
 $ vim docker-compose.yml # 更改相关配置

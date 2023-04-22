@@ -1,4 +1,4 @@
-NAME=data-transport-service
+NAME=xchenhao/data-transport-service
 VERSION=0.1.0
 GOPROXY=https://goproxy.cn
 

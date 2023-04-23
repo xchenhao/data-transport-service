@@ -2,6 +2,7 @@ package mongo_msg
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 type MongoDocOperation = string
@@ -67,17 +68,27 @@ func DecodeMsgBodyFieldsToMap(fieldValueMap map[string]interface{}) (map[string]
 					fallthrough
 				case "$code":  // Object()
 					fallthrough
-				case "t":  // i 1  // 时间戳（Timestamp() 秒）
-					fallthrough
+				case "$timestamp":  // i 1  // 时间戳（Timestamp() 秒）
+					subValMap, ok2 := subVal.(map[string]interface{})
+					if ok2 {
+						val = subValMap["t"]
+					}
+					alreadyGetSubVal = true
 				case "$oid":  // ObjectId
 					fallthrough
-				case "$date":  // Date(), ISODate()
+				case "$date":  // ISODate()
 					alreadyGetSubVal = true
 					val = subVal
 				}
 			}
 		}
-		result[key] = val
+		// WORKAROUND 将科学计数法形式的数字（如 1.59714E12）转为字符串（如 "159714131000"）
+		// 避免 gorm 写入数据时变成写入 "1.59714E12"
+		if _, ok := val.(float64); ok {
+			result[key] = fmt.Sprintf("%f", val)
+		} else {
+			result[key] = val
+		}
 	}
 
 	return result, nil
